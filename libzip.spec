@@ -31,6 +31,7 @@ Summary:	Header files for libzip library
 Summary(pl):	Pliki nag³ówkowe biblioteki libzip
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	zlib-devel >= 1.1.2
 
 %description devel
 Header files for libzip library.
