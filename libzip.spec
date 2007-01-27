@@ -22,8 +22,8 @@ closing the archive can be reverted.
 
 %description -l pl
 libzip jest bibliotek± C do odczytu, zapisu i modyfikacji archiwów
-zip. Pliki mog± byæ dodawane z buforów, plików lub skompresowane dane,
-mog± byæ kopiowane bezpo¶rednio z innego archiwum zip. Wykonane zmiany
+zip. Pliki mog± byæ dodawane z buforów, plików lub skompresowanych
+danych kopiowanych bezpo¶rednio z innych archiwów zip. Wykonane zmiany
 mog± zostaæ cofniête przed zamkniêciem archiwum.
 
 %package devel
@@ -86,9 +86,9 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libzip.so
+%{_libdir}/libzip.la
 %{_includedir}/zip.h
 %{_pkgconfigdir}/libzip.pc
-%{_libdir}/libzip.la
 %{_mandir}/man3/*.3*
 
 %files static
