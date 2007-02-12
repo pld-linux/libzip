@@ -1,5 +1,5 @@
 Summary:	C library for reading, creating, and modifying zip archives
-Summary(pl):	Biblioteka C do odczytu, zapisu i modyfikacji archiwÛw zip
+Summary(pl.UTF-8):   Biblioteka C do odczytu, zapisu i modyfikacji archiw√≥w zip
 Name:		libzip
 Version:	0.7.1
 Release:	1
@@ -20,15 +20,15 @@ archives. Files can be added from data buffers, files or compressed
 data copied directly from other zip archives. Changes made without
 closing the archive can be reverted.
 
-%description -l pl
-libzip jest bibliotek± C do odczytu, zapisu i modyfikacji archiwÛw
-zip. Pliki mog± byÊ dodawane z buforÛw, plikÛw lub skompresowanych
-danych kopiowanych bezpo∂rednio z innych archiwÛw zip. Wykonane zmiany
-mog± zostaÊ cofniÍte przed zamkniÍciem archiwum.
+%description -l pl.UTF-8
+libzip jest bibliotekƒÖ C do odczytu, zapisu i modyfikacji archiw√≥w
+zip. Pliki mogƒÖ byƒá dodawane z bufor√≥w, plik√≥w lub skompresowanych
+danych kopiowanych bezpo≈õrednio z innych archiw√≥w zip. Wykonane zmiany
+mogƒÖ zostaƒá cofniƒôte przed zamkniƒôciem archiwum.
 
 %package devel
 Summary:	Header files for libzip library
-Summary(pl):	Pliki nag≥Ûwkowe biblioteki libzip
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe biblioteki libzip
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	zlib-devel >= 1.1.2
@@ -36,19 +36,19 @@ Requires:	zlib-devel >= 1.1.2
 %description devel
 Header files for libzip library.
 
-%description devel -l pl
-Pliki nag≥Ûwkowe biblioteki libzip.
+%description devel -l pl.UTF-8
+Pliki nag≈Ç√≥wkowe biblioteki libzip.
 
 %package static
 Summary:	Static libzip library
-Summary(pl):	Statyczna biblioteka libzip
+Summary(pl.UTF-8):   Statyczna biblioteka libzip
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static libzip library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka libzip.
 
 %prep
