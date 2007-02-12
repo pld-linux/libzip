@@ -1,5 +1,5 @@
 Summary:	C library for reading, creating, and modifying zip archives
-Summary(pl.UTF-8):   Biblioteka C do odczytu, zapisu i modyfikacji archiwów zip
+Summary(pl.UTF-8):	Biblioteka C do odczytu, zapisu i modyfikacji archiwów zip
 Name:		libzip
 Version:	0.7.1
 Release:	1
@@ -28,7 +28,7 @@ mogą zostać cofnięte przed zamknięciem archiwum.
 
 %package devel
 Summary:	Header files for libzip library
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki libzip
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libzip
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	zlib-devel >= 1.1.2
@@ -41,7 +41,7 @@ Pliki nagłówkowe biblioteki libzip.
 
 %package static
 Summary:	Static libzip library
-Summary(pl.UTF-8):   Statyczna biblioteka libzip
+Summary(pl.UTF-8):	Statyczna biblioteka libzip
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
