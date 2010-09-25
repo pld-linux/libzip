@@ -83,7 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ziptorrent
 %attr(755,root,root) %{_libdir}/libzip.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libzip.so.1
-%{_mandir}/man1/*.1*
+%{_mandir}/man1/zipcmp.1*
+%{_mandir}/man1/zipmerge.1*
+%{_mandir}/man1/ziptorrent.1*
 
 %files devel
 %defattr(644,root,root,755)
@@ -91,7 +93,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libzip.la
 %{_includedir}/zip.h
 %{_pkgconfigdir}/libzip.pc
-%{_mandir}/man3/*.3*
+%{_mandir}/man3/libzip.3*
+%{_mandir}/man3/zip_*.3*
 
 %files static
 %defattr(644,root,root,755)
