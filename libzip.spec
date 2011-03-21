@@ -69,6 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libzip.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -90,7 +92,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libzip.so
-%{_libdir}/libzip.la
 # zipconf.h include
 %{_libdir}/libzip
 %{_includedir}/zip.h
