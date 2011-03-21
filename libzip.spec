@@ -1,12 +1,12 @@
 Summary:	C library for reading, creating, and modifying zip archives
 Summary(pl.UTF-8):	Biblioteka C do odczytu, zapisu i modyfikacji archiwów zip
 Name:		libzip
-Version:	0.9.3
+Version:	0.10
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://www.nih.at/libzip/%{name}-%{version}.tar.bz2
-# Source0-md5:	27610091ca27bf843a6646cd05de35b9
+# Source0-md5:	663d79a9d299a61026d1860d52cdf6fc
 URL:		http://www.nih.at/libzip/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -77,12 +77,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS NEWS README THANKS TODO
+%doc AUTHORS LICENSE NEWS README THANKS TODO
 %attr(755,root,root) %{_bindir}/zipcmp
 %attr(755,root,root) %{_bindir}/zipmerge
 %attr(755,root,root) %{_bindir}/ziptorrent
 %attr(755,root,root) %{_libdir}/libzip.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libzip.so.1
+%attr(755,root,root) %ghost %{_libdir}/libzip.so.2
 %{_mandir}/man1/zipcmp.1*
 %{_mandir}/man1/zipmerge.1*
 %{_mandir}/man1/ziptorrent.1*
@@ -91,6 +91,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libzip.so
 %{_libdir}/libzip.la
+# zipconf.h include
+%{_libdir}/libzip
 %{_includedir}/zip.h
 %{_pkgconfigdir}/libzip.pc
 %{_mandir}/man3/libzip.3*
