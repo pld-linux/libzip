@@ -1,16 +1,7 @@
 diff -up libzip-0.10/lib/zip_close.c.php libzip-0.10/lib/zip_close.c
---- libzip-0.10/lib/zip_close.c.php	2011-07-20 11:27:34.081252871 -0400
-+++ libzip-0.10/lib/zip_close.c	2011-07-20 11:30:50.176682999 -0400
-@@ -337,6 +337,8 @@ zip_close(struct zip *za)
-     umask(mask);
-     chmod(za->zn, 0666&~mask);
- #endif
-+    if (za->ch_comment)
-+        free(za->ch_comment);
- 
-     _zip_free(za);
-     free(temp);
-@@ -602,13 +604,15 @@ _zip_create_temp_output(struct zip *za, 
+--- libzip-0.10/lib/zip_close.c.php	2011-02-20 09:01:03.000000000 -0500
++++ libzip-0.10/lib/zip_close.c	2012-01-25 18:37:04.188136374 -0500
+@@ -602,13 +602,15 @@ _zip_create_temp_output(struct zip *za,
      char *temp;
      int tfd;
      FILE *tfp;
@@ -29,8 +20,8 @@ diff -up libzip-0.10/lib/zip_close.c.php libzip-0.10/lib/zip_close.c
      if ((tfd=mkstemp(temp)) == -1) {
  	_zip_error_set(&za->error, ZIP_ER_TMPOPEN, errno);
 diff -up libzip-0.10/lib/zip_fclose.c.php libzip-0.10/lib/zip_fclose.c
---- libzip-0.10/lib/zip_fclose.c.php	2011-07-20 11:38:05.883077282 -0400
-+++ libzip-0.10/lib/zip_fclose.c	2011-07-20 11:38:10.452025182 -0400
+--- libzip-0.10/lib/zip_fclose.c.php	2010-03-08 07:27:48.000000000 -0500
++++ libzip-0.10/lib/zip_fclose.c	2012-01-25 18:36:22.389542215 -0500
 @@ -47,12 +47,14 @@ zip_fclose(struct zip_file *zf)
      if (zf->src)
  	zip_source_free(zf->src);
@@ -53,8 +44,8 @@ diff -up libzip-0.10/lib/zip_fclose.c.php libzip-0.10/lib/zip_fclose.c
  
      ret = 0;
 diff -up libzip-0.10/lib/zip.h.php libzip-0.10/lib/zip.h
---- libzip-0.10/lib/zip.h.php	2011-07-20 11:39:40.732027472 -0400
-+++ libzip-0.10/lib/zip.h	2011-07-20 11:40:28.626521627 -0400
+--- libzip-0.10/lib/zip.h.php	2011-03-04 12:17:43.000000000 -0500
++++ libzip-0.10/lib/zip.h	2012-01-25 18:36:22.389542215 -0500
 @@ -59,7 +59,7 @@ extern "C" {
  #define ZIP_CREATE           1
  #define ZIP_EXCL             2
@@ -64,10 +55,9 @@ diff -up libzip-0.10/lib/zip.h.php libzip-0.10/lib/zip.h
  
  /* flags for zip_name_locate, zip_fopen, zip_stat, ... */
  
-diff -up libzip-0.10/lib/zipint.h.php libzip-0.10/lib/zipint.h
 diff -up libzip-0.10/lib/zip_open.c.php libzip-0.10/lib/zip_open.c
---- libzip-0.10/lib/zip_open.c.php	2011-07-20 11:44:01.270451036 -0400
-+++ libzip-0.10/lib/zip_open.c	2011-07-20 11:45:33.877629039 -0400
+--- libzip-0.10/lib/zip_open.c.php	2011-03-16 07:18:44.000000000 -0400
++++ libzip-0.10/lib/zip_open.c	2012-01-25 18:36:22.389542215 -0500
 @@ -61,10 +61,16 @@ ZIP_EXTERN struct zip *
  zip_open(const char *fn, int flags, int *zep)
  {
