@@ -1,15 +1,12 @@
 Summary:	C library for reading, creating, and modifying zip archives
 Summary(pl.UTF-8):	Biblioteka C do odczytu, zapisu i modyfikacji archiwów zip
 Name:		libzip
-Version:	0.11.1
+Version:	0.11.2
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://www.nih.at/libzip/%{name}-%{version}.tar.xz
-# Source0-md5:	87d5ec3629f6ad2a4b01ad961e7f0c19
-Patch0:		%{name}-fix_headers.patch
-# https://bugs.php.net/bug.php?id=39388
-Patch1:		%{name}-0.10-php-changes.patch
+# Source0-md5:	44c99b67dca34707b5728e5f8434fe91
 URL:		http://www.nih.at/libzip/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake
@@ -58,7 +55,6 @@ Statyczna biblioteka libzip.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -97,8 +93,9 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libzip.so
+%dir %{_libdir}/libzip
+%{_libdir}/libzip/include
 %{_includedir}/zip.h
-%{_includedir}/zipconf.h
 %{_pkgconfigdir}/libzip.pc
 %{_mandir}/man3/libzip.3*
 %{_mandir}/man3/zip_*.3*
