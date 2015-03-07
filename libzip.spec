@@ -2,7 +2,7 @@ Summary:	C library for reading, creating, and modifying zip archives
 Summary(pl.UTF-8):	Biblioteka C do odczytu, zapisu i modyfikacji archiwów zip
 Name:		libzip
 Version:	0.11.2
-Release:	1
+Release:	2
 License:	BSD
 Group:		Libraries
 Source0:	http://www.nih.at/libzip/%{name}-%{version}.tar.xz
