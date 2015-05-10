@@ -1,20 +1,20 @@
 Summary:	C library for reading, creating, and modifying zip archives
 Summary(pl.UTF-8):	Biblioteka C do odczytu, zapisu i modyfikacji archiwów zip
 Name:		libzip
-Version:	0.11.2
-Release:	3
+Version:	1.0.1
+Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://www.nih.at/libzip/%{name}-%{version}.tar.xz
-# Source0-md5:	44c99b67dca34707b5728e5f8434fe91
-Patch0:		%{name}-CVE-2015-2331.patch
+# Source0-md5:	e2371fc6f04a46efdaf8cbf4118ffafd
 URL:		http://www.nih.at/libzip/
-BuildRequires:	autoconf >= 2.57
+BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	zlib-devel >= 1.1.2
+Requires:	zlib >= 1.1.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -56,7 +56,6 @@ Statyczna biblioteka libzip.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -85,20 +84,20 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS LICENSE NEWS README THANKS TODO
 %attr(755,root,root) %{_bindir}/zipcmp
 %attr(755,root,root) %{_bindir}/zipmerge
-%attr(755,root,root) %{_bindir}/ziptorrent
 %attr(755,root,root) %{_libdir}/libzip.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libzip.so.2
+%attr(755,root,root) %ghost %{_libdir}/libzip.so.4
 %{_mandir}/man1/zipcmp.1*
 %{_mandir}/man1/zipmerge.1*
-%{_mandir}/man1/ziptorrent.1*
 
 %files devel
 %defattr(644,root,root,755)
+%doc API-CHANGES
 %attr(755,root,root) %{_libdir}/libzip.so
 %dir %{_libdir}/libzip
 %{_libdir}/libzip/include
 %{_includedir}/zip.h
 %{_pkgconfigdir}/libzip.pc
+%{_mandir}/man3/ZIP_SOURCE_GET_ARGS.3*
 %{_mandir}/man3/libzip.3*
 %{_mandir}/man3/zip_*.3*
 
