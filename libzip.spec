@@ -84,14 +84,16 @@ rm -rf $RPM_BUILD_ROOT
 %doc README.md NEWS.md THANKS LICENSE AUTHORS
 %attr(755,root,root) %{_bindir}/zipcmp
 %attr(755,root,root) %{_bindir}/zipmerge
+%attr(755,root,root) %{_bindir}/ziptool
 %attr(755,root,root) %{_libdir}/libzip.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libzip.so.4
 %{_mandir}/man1/zipcmp.1*
 %{_mandir}/man1/zipmerge.1*
+%{_mandir}/man1/ziptool.1*
 
 %files devel
 %defattr(644,root,root,755)
-%doc API-CHANGES TODO.md 
+%doc API-CHANGES TODO.md
 %attr(755,root,root) %{_libdir}/libzip.so
 %dir %{_libdir}/libzip
 %{_libdir}/libzip/include
