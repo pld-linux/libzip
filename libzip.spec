@@ -1,16 +1,17 @@
 Summary:	C library for reading, creating, and modifying zip archives
 Summary(pl.UTF-8):	Biblioteka C do odczytu, zapisu i modyfikacji archiwów zip
 Name:		libzip
-Version:	1.2.0
+Version:	1.4.0
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	http://www.nih.at/libzip/%{name}-%{version}.tar.xz
-# Source0-md5:	2a9b316d16218f1b7562d5a5e0fcbd79
+# Source0-md5:	b411f3ebfa735d33a390f80c8e939029
+Patch0:		libzip-upstream.patch
+Patch1:		libzip-rpath.patch
+Patch2:		libzip-multilib.patch
 URL:		http://www.nih.at/libzip/
-BuildRequires:	autoconf >= 2.60
-BuildRequires:	automake
-BuildRequires:	libtool >= 2:2
+BuildRequires:	cmake
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	zlib-devel >= 1.1.2
@@ -42,36 +43,23 @@ Header files for libzip library.
 %description devel -l pl.UTF-8
 Pliki nagłówkowe biblioteki libzip.
 
-%package static
-Summary:	Static libzip library
-Summary(pl.UTF-8):	Statyczna biblioteka libzip
-Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
-
-%description static
-Static libzip library.
-
-%description static -l pl.UTF-8
-Statyczna biblioteka libzip.
-
 %prep
 %setup -q
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure
+install -d build
+cd build
+%{cmake} ..
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libzip.la
+%{__make} -C build install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -85,7 +73,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/zipcmp
 %attr(755,root,root) %{_bindir}/zipmerge
 %attr(755,root,root) %{_bindir}/ziptool
-%attr(755,root,root) %{_libdir}/libzip.so.*.*.*
+%attr(755,root,root) %{_libdir}/libzip.so.*.*
 %attr(755,root,root) %ghost %{_libdir}/libzip.so.5
 %{_mandir}/man1/zipcmp.1*
 %{_mandir}/man1/zipmerge.1*
@@ -93,16 +81,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc API-CHANGES TODO.md
+%doc API-CHANGES.md TODO.md
 %attr(755,root,root) %{_libdir}/libzip.so
-%dir %{_libdir}/libzip
-%{_libdir}/libzip/include
 %{_includedir}/zip.h
+%{_includedir}/zipconf.h
 %{_pkgconfigdir}/libzip.pc
 %{_mandir}/man3/ZIP_SOURCE_GET_ARGS.3*
 %{_mandir}/man3/libzip.3*
 %{_mandir}/man3/zip_*.3*
-
-%files static
-%defattr(644,root,root,755)
-%{_libdir}/libzip.a
