@@ -1,17 +1,23 @@
+#
+# Conditional build:
+%bcond_with	gnutls	# GnuTLS instead of OpenSSL for AES
+
 Summary:	C library for reading, creating, and modifying zip archives
 Summary(pl.UTF-8):	Biblioteka C do odczytu, zapisu i modyfikacji archiwów zip
 Name:		libzip
-Version:	1.4.0
+Version:	1.5.1
 Release:	1
 License:	BSD
 Group:		Libraries
-Source0:	http://www.nih.at/libzip/%{name}-%{version}.tar.xz
-# Source0-md5:	b411f3ebfa735d33a390f80c8e939029
-Patch0:		libzip-upstream.patch
-Patch1:		libzip-rpath.patch
-Patch2:		libzip-multilib.patch
-URL:		http://www.nih.at/libzip/
-BuildRequires:	cmake
+Source0:	https://libzip.org/download/%{name}-%{version}.tar.xz
+# Source0-md5:	6fe665aa6d6bf3a99eb6fa9c553283fd
+URL:		https://libzip.org/
+BuildRequires:	bzip2-devel
+BuildRequires:	cmake >= 3.0.2
+BuildRequires:	groff
+%{?with_gnutls:BuildRequires:	gnutls-devel}
+%{?with_gnutls:BuildRequires:	nettle-devel}
+%{!?with_gnutls:BuildRequires:	openssl-devel}
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	zlib-devel >= 1.1.2
@@ -35,6 +41,7 @@ Summary:	Header files for libzip library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libzip
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	bzip2-devel
 Requires:	zlib-devel >= 1.1.2
 
 %description devel
@@ -45,14 +52,19 @@ Pliki nagłówkowe biblioteki libzip.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 install -d build
 cd build
-%{cmake} ..
+# .pc file generation expects dirs relative to CMAKE_INSTALL_PREFIX
+%cmake .. \
+	-DCMAKE_INSTALL_BINDIR=bin \
+	-DCMAKE_INSTALL_INCLUDEDIR=include \
+	-DCMAKE_INSTALL_LIBDIR=%{_lib} \
+	-DENABLE_COMMONCRYPTO=OFF \
+	%{!?with_gnutls:-DENABLE_GNUTLS=OFF} \
+	%{?with_gnutls:-DENABLE_OPENSSL=OFF}
+
 %{__make}
 
 %install
@@ -69,7 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README.md NEWS.md THANKS LICENSE AUTHORS
+%doc AUTHORS LICENSE NEWS.md README.md THANKS
 %attr(755,root,root) %{_bindir}/zipcmp
 %attr(755,root,root) %{_bindir}/zipmerge
 %attr(755,root,root) %{_bindir}/ziptool
