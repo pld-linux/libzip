@@ -5,23 +5,26 @@
 Summary:	C library for reading, creating, and modifying zip archives
 Summary(pl.UTF-8):	Biblioteka C do odczytu, zapisu i modyfikacji archiwów zip
 Name:		libzip
-Version:	1.5.1
-Release:	2
+Version:	1.7.3
+Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	https://libzip.org/download/%{name}-%{version}.tar.xz
-# Source0-md5:	6fe665aa6d6bf3a99eb6fa9c553283fd
+# Source0-md5:	c0185e10023963bbec0e0002ab39d981
 URL:		https://libzip.org/
 BuildRequires:	bzip2-devel
 BuildRequires:	cmake >= 3.0.2
 BuildRequires:	groff
 %{?with_gnutls:BuildRequires:	gnutls-devel}
-%{?with_gnutls:BuildRequires:	nettle-devel}
+%{?with_gnutls:BuildRequires:	nettle-devel >= 3.0}
 %{!?with_gnutls:BuildRequires:	openssl-devel}
+BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+BuildRequires:	xz-devel >= 1:5.2
 BuildRequires:	zlib-devel >= 1.1.2
 Requires:	zlib >= 1.1.2
+Requires:	xz-libs >= 1:5.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -42,6 +45,10 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libzip
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	bzip2-devel
+%{?with_gnutls:Requires:	gnutls-devel}
+%{?with_gnutls:Requires:	nettle-devel >= 3.0}
+%{!?with_gnutls:Requires:	openssl-devel}
+Requires:	xz-devel >= 1:5.2
 Requires:	zlib-devel >= 1.1.2
 Obsoletes:	libzip-static < 1.4.0
 
@@ -98,6 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libzip.so
 %{_includedir}/zip.h
 %{_includedir}/zipconf.h
+%{_libdir}/cmake/libzip
 %{_pkgconfigdir}/libzip.pc
 %{_mandir}/man3/ZIP_SOURCE_GET_ARGS.3*
 %{_mandir}/man3/libzip.3*
