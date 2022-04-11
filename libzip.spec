@@ -5,16 +5,18 @@
 Summary:	C library for reading, creating, and modifying zip archives
 Summary(pl.UTF-8):	Biblioteka C do odczytu, zapisu i modyfikacji archiwów zip
 Name:		libzip
-Version:	1.7.3
-Release:	2
+Version:	1.8.0
+Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	https://libzip.org/download/%{name}-%{version}.tar.xz
-# Source0-md5:	c0185e10023963bbec0e0002ab39d981
+# Source0-md5:	c0448fb7be85bc1caa87bc2fe5ab5ff8
+Patch0:		%{name}-pc.patch
 URL:		https://libzip.org/
 BuildRequires:	bzip2-devel
 BuildRequires:	cmake >= 3.0.2
 BuildRequires:	groff
+# also mbedtls >= 1.0 supported
 %{?with_gnutls:BuildRequires:	gnutls-devel}
 %{?with_gnutls:BuildRequires:	nettle-devel >= 3.0}
 %{!?with_gnutls:BuildRequires:	openssl-devel}
@@ -23,6 +25,7 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	xz-devel >= 1:5.2
 BuildRequires:	zlib-devel >= 1.1.2
+BuildRequires:	zstd-devel
 Requires:	zlib >= 1.1.2
 Requires:	xz-libs >= 1:5.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -60,6 +63,7 @@ Pliki nagłówkowe biblioteki libzip.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 install -d build
