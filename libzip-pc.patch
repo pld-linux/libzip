@@ -1,10 +1,11 @@
 --- libzip-1.8.0/CMakeLists.txt.orig	2021-06-18 18:08:29.000000000 +0200
 +++ libzip-1.8.0/CMakeLists.txt	2022-04-11 18:02:41.493156907 +0200
-@@ -303,6 +303,7 @@ string(REGEX REPLACE "-lOpenSSL::Crypto"
- string(REGEX REPLACE "-lZLIB::ZLIB" "-lz" LIBS ${LIBS})
+@@ -356,6 +356,7 @@ string(REGEX REPLACE "-lOpenSSL::Crypto"
+ string(REGEX REPLACE "-lZLIB::ZLIB" ${zlib_link_name} LIBS ${LIBS})
  string(REGEX REPLACE "-lGnuTLS::GnuTLS" "-lgnutls" LIBS ${LIBS})
  string(REGEX REPLACE "-lNettle::Nettle" "-lnettle" LIBS ${LIBS})
 +string(REGEX REPLACE "-lZstd::Zstd" "-lzstd" LIBS ${LIBS})
  configure_file(libzip.pc.in libzip.pc @ONLY)
  if(LIBZIP_DO_INSTALL)
    install(FILES ${PROJECT_BINARY_DIR}/libzip.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+
