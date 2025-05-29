@@ -5,16 +5,16 @@
 Summary:	C library for reading, creating, and modifying zip archives
 Summary(pl.UTF-8):	Biblioteka C do odczytu, zapisu i modyfikacji archiwów zip
 Name:		libzip
-Version:	1.11.2
+Version:	1.11.4
 Release:	1
 License:	BSD
 Group:		Libraries
 Source0:	https://libzip.org/download/%{name}-%{version}.tar.xz
-# Source0-md5:	c3551b8417082b0a9c74d19d1e5270ea
+# Source0-md5:	5b53072471ef2ef03505fc6ac06f5835
 Patch0:		%{name}-pc.patch
 URL:		https://libzip.org/
 BuildRequires:	bzip2-devel
-BuildRequires:	cmake >= 3.0.2
+BuildRequires:	cmake >= 3.10
 BuildRequires:	groff
 # also mbedtls >= 1.0 supported
 %{?with_gnutls:BuildRequires:	gnutls-devel}
@@ -25,9 +25,10 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRequires:	xz-devel >= 1:5.2
 BuildRequires:	zlib-devel >= 1.1.2
-BuildRequires:	zstd-devel
+BuildRequires:	zstd-devel >= 1.4.0
 Requires:	zlib >= 1.1.2
 Requires:	xz-libs >= 1:5.2
+Requires:	zstd >= 1.4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -53,6 +54,7 @@ Requires:	bzip2-devel
 %{!?with_gnutls:Requires:	openssl-devel}
 Requires:	xz-devel >= 1:5.2
 Requires:	zlib-devel >= 1.1.2
+Requires:	zstd-devel >= 1.4.0
 Obsoletes:	libzip-static < 1.4.0
 
 %description devel
@@ -114,3 +116,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/ZIP_SOURCE_GET_ARGS.3*
 %{_mandir}/man3/libzip.3*
 %{_mandir}/man3/zip_*.3*
+# FIXME: should be man3
+%{_mandir}/man5/zip.5*
+%{_mandir}/man5/zip_error.5*
+%{_mandir}/man5/zip_file.5*
+%{_mandir}/man5/zip_source.5*
